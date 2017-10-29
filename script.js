@@ -1,43 +1,48 @@
-//ajout placeholder onfocus
-//name
-var nameElt = document.getElementById("name");
-nameElt.addEventListener("focus", function () {
-    document.getElementById("name").setAttribute("placeholder", "Entrez votre pseudo");
+//declaration des varialbles globales
 
+var form             = document.querySelector("form");
+
+var firstFieldset    = document.querySelector('fieldset');
+var userName    = document.getElementById("name");
+
+var emailAddress     = document.getElementById('mail');
+var regexEmail       = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+
+//modification et verification du name
+userName.addEventListener("focus", function () {
+    document.getElementById("name").setAttribute("placeholder", "Entrez votre pseudo");
 });
-nameElt.addEventListener("blur", function (e) {
+
+userName.addEventListener("blur", function () {
     document.getElementById("name").setAttribute("placeholder", "");
 });
-//mail
-var mailElt = document.getElementById("mail");
-mailElt.addEventListener("focus", function () {
-    document.getElementById("mail").setAttribute("placeholder", "Entrez votre email");
 
+userName.addEventListener("input", function (e) {
+    var name = e.target.value;
+    var couleurBlock = "red";
+    if (name.length >= 2) {
+        couleurBlock = "green";
+    }
+    userName.style.color = couleurBlock;
 });
-mailElt.addEventListener("blur", function (e) {
+
+
+// modification et verification de l'email
+emailAddress.addEventListener("focus", function () {
+    document.getElementById("mail").setAttribute("placeholder", "Entrez votre email");
+});
+
+emailAddress.addEventListener("blur", function () {
     document.getElementById("mail").setAttribute("placeholder", "");
 });
 
-
-// //verification des champs mail et name
-// document.querySelector("legend").setAttribute("id", "legend");
-// var spanNameElt = document.createElement("li");
-// spanNameElt.id = "aideName";
-// spanNameElt.textContent = "";
-// document.getElementById("legend").beforebegin(spanNameElt, document.getElementById("name"));
-
-document.getElementById("name").addEventListener("input", function (e) {
-    var name = e.target.value; // Valeur saisie dans le champ mdp
-    var longueurName = "faible";
-    var couleurMsg = "red"; // Longueur faible => couleur rouge
-    if (name.length >= 8) {
-        longueurName = "suffisante";
-        couleurMsg = "green"; // Longueur suffisante => couleur verte
-    } else if (name.length >= 4) {
-        longueurName = "moyenne";
-        couleurMsg = "orange"; // Longueur moyenne => couleur orange
+emailAddress.addEventListener("blur", function (e) {
+    var validiteCourriel = "";
+    if (!regexEmail.test(e.target.value)) {
+        validiteCourriel = "red";
+    }else {
+        validiteCourriel = "green";
     }
-    var aideNameElt = document.getElementById("aideName");
-    aideNameElt.textContent = "Longueur : " + longueurName; // Texte de l'aide
-    aideNameElt.style.color = couleurMsg; // Couleur du texte de l'aide
+    emailAddress.style.color = validiteCourriel
 });
