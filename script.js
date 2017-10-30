@@ -5,9 +5,9 @@ const form           = document.querySelector("form");
 const firstFieldset  = document.querySelector('fieldset');
 const userName       = document.getElementById("name");
 
-const emailAddress     = document.getElementById('mail');
-const regexEmail       = new RegExp(!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6}$/);
- var option          = document.getElementsByTagName('option');
+const emailAddress   = document.getElementById('mail');
+
+var option           = document.getElementsByTagName('option');
 
 
 
@@ -39,27 +39,30 @@ emailAddress.addEventListener("blur", function () {
     document.getElementById("mail").setAttribute("placeholder", "");
 });
 
-document.getElementById("mail").addEventListener("input", function (e) {
-    // Correspond à une chaîne de la forme xxx@yyy.zzz
-    var regexCourriel = /.+@.+\..+/;
-    var couleurBlock = "red";
-    if (!regexCourriel.test(e.target.value)) {
-        couleurBlock = "green";
-    }
-    emailAddress.style.borderColor = couleurBlock;
-}); // a retravailler!!!
 
+function verifEmail() {
+					var champ = document.getElementById('mail');
+
+					if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6}$/.test(champ.value)) { // si l'email n'est pas correct:
+						emailAddress.style.borderColor = "red";
+						return false;
+					} else {//si l'email est correct:
+						emailAddress.style.borderColor = "green";
+						return true;
+					}
+				}
+document.getElementById("mail").addEventListener("input", function (e) {
+        verifEmail();
+
+        });
 
 // rubrique role travail
 //ajout de l'id 'other-title'
 option[5].id = "other-title";
 // creation de l'élément Texte
-var inputText = document.createElement("input");
-inputText.setAttribute("id", "nom",);
-inputText.setAttribute("type", "text");
-inputText.style.height = "10px";
 
-document.getElementById("title").appendChild(inputText);
+
+
 
 
 
