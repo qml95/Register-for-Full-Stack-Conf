@@ -59,11 +59,20 @@ document.getElementById("mail").addEventListener("input", function (e) {
 //ajout de l'id 'other-title'
 option[5].id = "other-title";
 // creation de l'élément Texte
-var inputOther = option[5];
-console.log(inputOther);
+document.getElementById('title').insertAdjacentHTML("afterend",
+    '<input type="text" name="" value="" id="input">');
 
-function input() {
-  if (this.option[this.selectedIndex].value === 'other') {
-    document.getElementById("title").innerHTML += '<input type="text" name="autre" value="">';
+var inputElt = document.getElementById('input')
+inputElt.style.width = '100px';
+inputElt.style.height = '10px';
+inputElt.style.backgroundColor = 'white';
+
+function ajoutInput(this_select) {
+   if (this_select.value === "other") {
+    console.log("yes!!");
   }
 }
+
+
+
+document.getElementById('title').addEventListener("change", ajoutInput(this));
