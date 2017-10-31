@@ -20,6 +20,7 @@ var selectTshirt		 = document.querySelector("#design")
 var selectPuns			 = document.querySelector("#jspuns")
 
 var selecHeart			 = document.querySelector("#heartjs")
+ var selectColor		 = document.querySelector('#colors-js-puns')
 
 
 
@@ -71,23 +72,42 @@ function afficherInput() {
 }
 //fonction choix des t-shirt
 function ajoutId() {
+	option[10].setAttribute("value", "theme");
 	option[11].id = "jspuns";
 	option[12].id = "heartjs";
 }
 function ajoutClassPuns() {
 	for (var i = 13; i < 16; i++) {
-		option[i].classList.add("puns")
+		option[i].style.display = "none";
 	}
 }
 function ajoutClassJs() {
 	for (var i = 16; i < 19; i++) {
-		option[i].classList.add("js")
+		option[i].style.display = "none";
+	}
+}
+function switchChoix() {
+	switch (form.elements.design.value) {
+		case "theme":
+			console.log("theme");
+			selectColor.style.display = "none";
+			break;
+		case "js puns":
+				console.log("js puns");
+				selectColor.style.display = "";
+				ajoutClassJs();
+				break;
+		case "heart js":
+				console.log("heart js");
+				selectColor.style.display = "";
+				ajoutClassPuns();
+				break;
+		default:
+				console.log("non connu");
+				selectColor.style.display = "none";
 	}
 }
 
-function changeTshirt() {
-	
-}
 
 /**************modification en direct******************/
 
@@ -133,7 +153,9 @@ afficherInput();
 //rubrique t-shirt
 
 //ajout class sur les choix de coloris
+selectColor.style.display = "none";
 ajoutId();
-ajoutClassPuns();
-ajoutClassJs();
-changeTshirt();
+form.addEventListener("change", function (e) {
+	switchChoix();
+
+});
