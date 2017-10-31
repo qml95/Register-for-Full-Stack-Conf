@@ -2,54 +2,94 @@
 
 const form           = document.querySelector("form");
 
-const firstFieldset  = document.querySelector('fieldset');
+const firstFieldset  =
+document.querySelector('fieldset');
+
 const userName       = document.getElementById("name");
 
 const emailAddress   = document.getElementById('mail');
 
 var option           = document.getElementsByTagName('option');
 
-var TitleSelect  = document.querySelector("#title")
+var select					 = document.querySelector("#title")
 
 var jobAutre         = document.querySelector("#other-title")
+
+var selectTshirt		 = document.querySelector("#design")
+
+var selectPuns			 = document.querySelector("#jspuns")
+
+var selecHeart			 = document.querySelector("#heartjs")
+
+
+
+/*********************création d'éléments**************/
+
+// élément jobrole
+document.getElementById('title').insertAdjacentHTML("afterend",
+    '<input type="text" name="" value="" id="input">');
+
+var inputElt = document.getElementById('input');
+inputElt.style.width = '50%';
+inputElt.style.height = '10px';
+inputElt.style.backgroundColor = '#c1deeb';
+inputElt.style.display = "none";
+inputElt.style.marginLeft = '20px';
+
+/**************************fonctions*******************/
 
 
 //declarations de mes fonctions
 function verifEmail() {
 	if
     (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6}$/.test(emailAddress.value)) { // si l'email n'est pas correct:
-	  emailAddress.style.borderColor = "red";
-	  return false;
+	    emailAddress.style.borderColor = "red";
+	    return false;
   } else {//si l'email est correct:
-	 emailAddress.style.borderColor = "green";
+	  emailAddress.style.borderColor = "green";
 	  return true;
 	}
 }
 // function pout l'input de jobrole
 function afficherInput() {
+	var autreJob = (jobAutre) => {
+	  if (jobAutre.toLowerCase()=== "other") {
+	    inputElt.style.display = "";
+	  }else {
+	  	inputElt.style.display = "none";
+	  }
+	}
 
-// creation de l'élément Texte
-document.getElementById('title').insertAdjacentHTML("afterend",
-    '<input type="text" name="" value="" id="input">');
+	inputElt.addEventListener("focus", function () {
+	    inputElt.style.backgroundColor = 'white';
+	});
 
-var inputElt = document.getElementById('input')
-inputElt.style.width = '150px';
-inputElt.style.height = '10px';
-inputElt.style.backgroundColor = '#c1deeb';
-inputElt.style.borderRadius = '10px';
-inputElt.style.display = "none";
-inputElt.style.marginLeft = '50px';
-
-var autreJob = (jobAutre) => {
-  if (jobAutre.toLowerCase()=== "other") {
-    inputElt.style.display = "";
-  }
-}
-TitleSelect.addEventListener('change', () => {
-    let jobAutre = TitleSelect.value;
-    autreJob(jobAutre);
+	select.addEventListener('change', () => {
+	    let jobAutre = select.value;
+	    autreJob(jobAutre);
 });
 }
+//fonction choix des t-shirt
+function ajoutId() {
+	option[11].id = "jspuns";
+	option[12].id = "heartjs";
+}
+function ajoutClassPuns() {
+	for (var i = 13; i < 16; i++) {
+		option[i].classList.add("puns")
+	}
+}
+function ajoutClassJs() {
+	for (var i = 16; i < 19; i++) {
+		option[i].classList.add("js")
+	}
+}
+
+function changeTshirt() {
+	
+}
+
+/**************modification en direct******************/
 
 //modification et verification du name
 
@@ -90,5 +130,10 @@ option[5].id = "other-title";
 afficherInput();
 
 
-
 //rubrique t-shirt
+
+//ajout class sur les choix de coloris
+ajoutId();
+ajoutClassPuns();
+ajoutClassJs();
+changeTshirt();
