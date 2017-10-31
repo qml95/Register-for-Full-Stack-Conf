@@ -15,11 +15,7 @@ var select					 = document.querySelector("#title")
 
 var jobAutre         = document.querySelector("#other-title")
 
-var selectTshirt		 = document.querySelector("#design")
 
-var selectPuns			 = document.querySelector("#jspuns")
-
-var selecHeart			 = document.querySelector("#heartjs")
  var selectColor		 = document.querySelector('#colors-js-puns')
 
 
@@ -76,34 +72,38 @@ function ajoutId() {
 	option[11].id = "jspuns";
 	option[12].id = "heartjs";
 }
-function ajoutClassPuns() {
+function partie1Tshirt() {
+	option[13].setAttribute("selected","selected");
 	for (var i = 13; i < 16; i++) {
-		option[i].style.display = "none";
+		option[i].style.display = '';
 	}
-}
-function ajoutClassJs() {
 	for (var i = 16; i < 19; i++) {
-		option[i].style.display = "none";
+		option[i].style.display = 'none';
 	}
 }
-function switchChoix() {
+function partie2Tshirt() {
+	option[16].setAttribute("selected","selected");
+	for (var i = 13; i < 16; i++) {
+		option[i].style.display = 'none';
+	}
+	for (var i = 16; i < 19; i++) {
+		option[i].style.display = '';
+	}
+}
+function switchChoixTshirt() {
 	switch (form.elements.design.value) {
 		case "theme":
-			console.log("theme");
 			selectColor.style.display = "none";
 			break;
 		case "js puns":
-				console.log("js puns");
-				selectColor.style.display = "";
-				ajoutClassJs();
-				break;
+			selectColor.style.display = "";
+			partie1Tshirt();
+			break;
 		case "heart js":
-				console.log("heart js");
-				selectColor.style.display = "";
-				ajoutClassPuns();
-				break;
+			selectColor.style.display = "";
+			partie2Tshirt();
+			break;
 		default:
-				console.log("non connu");
 				selectColor.style.display = "none";
 	}
 }
@@ -155,7 +155,8 @@ afficherInput();
 //ajout class sur les choix de coloris
 selectColor.style.display = "none";
 ajoutId();
-form.addEventListener("change", function (e) {
-	switchChoix();
 
+form.addEventListener("change", function (e) {
+	switchChoixTshirt();
+e.preventDefault();
 });
