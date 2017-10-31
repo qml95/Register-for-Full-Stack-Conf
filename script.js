@@ -9,6 +9,10 @@ const emailAddress   = document.getElementById('mail');
 
 var option           = document.getElementsByTagName('option');
 
+var TitleSelect  = document.querySelector("#title")
+
+var jobAutre         = document.querySelector("#other-title")
+
 
 //declarations de mes fonctions
 function verifEmail() {
@@ -21,7 +25,31 @@ function verifEmail() {
 	  return true;
 	}
 }
+// function pout l'input de jobrole
+function afficherInput() {
 
+// creation de l'élément Texte
+document.getElementById('title').insertAdjacentHTML("afterend",
+    '<input type="text" name="" value="" id="input">');
+
+var inputElt = document.getElementById('input')
+inputElt.style.width = '150px';
+inputElt.style.height = '10px';
+inputElt.style.backgroundColor = '#c1deeb';
+inputElt.style.borderRadius = '10px';
+inputElt.style.display = "none";
+inputElt.style.marginLeft = '50px';
+
+var autreJob = (jobAutre) => {
+  if (jobAutre.toLowerCase()=== "other") {
+    inputElt.style.display = "";
+  }
+}
+TitleSelect.addEventListener('change', () => {
+    let jobAutre = TitleSelect.value;
+    autreJob(jobAutre);
+});
+}
 
 //modification et verification du name
 
@@ -58,21 +86,9 @@ document.getElementById("mail").addEventListener("input", function (e) {
 // rubrique role travail
 //ajout de l'id 'other-title'
 option[5].id = "other-title";
-// creation de l'élément Texte
-document.getElementById('title').insertAdjacentHTML("afterend",
-    '<input type="text" name="" value="" id="input">');
-
-var inputElt = document.getElementById('input')
-inputElt.style.width = '100px';
-inputElt.style.height = '10px';
-inputElt.style.backgroundColor = 'white';
-
-function ajoutInput(this_select) {
-   if (this_select.value === "other") {
-    console.log("yes!!");
-  }
-}
+//appelle de la fonction afficherInput pour jobrole
+afficherInput();
 
 
 
-document.getElementById('title').addEventListener("change", ajoutInput(this));
+//rubrique t-shirt
