@@ -66,6 +66,7 @@ function afficherInput() {
 	    autreJob(jobAutre);
 });
 }
+
 //fonction choix des t-shirt
 function ajoutId() {
 	option[10].setAttribute("value", "theme");
@@ -73,21 +74,21 @@ function ajoutId() {
 	option[12].id = "heartjs";
 }
 function partie1Tshirt() {
-	option[13].setAttribute("selected","selected");
-	for (var i = 13; i < 16; i++) {
+	option[13].setAttribute("selected", true);
+	for (var i = 14; i < 17; i++) {
 		option[i].style.display = '';
 	}
-	for (var i = 16; i < 19; i++) {
+	for (var i = 17; i < 20; i++) {
 		option[i].style.display = 'none';
 	}
 }
 function partie2Tshirt() {
-	option[16].setAttribute("selected","selected");
-	for (var i = 13; i < 16; i++) {
-		option[i].style.display = 'none';
-	}
-	for (var i = 16; i < 19; i++) {
+	option[13].setAttribute("selected", true);
+	for (var i = 17; i < 20; i++) {
 		option[i].style.display = '';
+	}
+	for (var i = 14; i < 17; i++) {
+		option[i].style.display = 'none';
 	}
 }
 function switchChoixTshirt() {
