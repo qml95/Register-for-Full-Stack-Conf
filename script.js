@@ -9,14 +9,22 @@ const userName       = document.getElementById("name");
 
 const emailAddress   = document.getElementById('mail');
 
-var option           = document.getElementsByTagName('option');
+const option           = document.getElementsByTagName('option');
 
-var select					 = document.querySelector("#title")
+const select					 = document.querySelector("#title")
 
-var jobAutre         = document.querySelector("#other-title")
+const jobAutre         = document.querySelector("#other-title")
+
+const selectColor		 = document.querySelector('#colors-js-puns')
+
+var activitesField        = document.querySelector('.activities');
+
+var incrireTitre             = activitesField.firstElementChild;
+
+var activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
 
 
- var selectColor		 = document.querySelector('#colors-js-puns')
+
 
 
 
@@ -47,6 +55,8 @@ function verifEmail() {
 	  return true;
 	}
 }
+//role travail
+option[5].id = "other-title";
 // function pout l'input de jobrole
 function afficherInput() {
 	var autreJob = (jobAutre) => {
@@ -109,8 +119,43 @@ function switchChoixTshirt() {
 	}
 }
 
+//rubrique activite
+var checkActivite = (activite1, activite2) => {
+	if (activite1.checked) {
+		activite2.setAttribute("disabled", true);
+	}
+}
+var uncheckActivite = (activite1, activite2) => {
+	if (!activite1.checked) {
+		activite2.removeAttribut("disabled")
+	}
+}
+// desactivation des choix et prix
+var inscrireAuActivites = (inputChecked) => {
+	//1er couple
+	let jsFrameworks =
+	document.querySelector ('input[name=js-frameworks]');
+	let express = document.querySelector('input[name=express]');
+	//2ème couple
+	let jsLibs = document.querySelector('input[name=js-libs]');
+	let node = document.querySelector('input[name=node]');
 
-/**************modification en direct******************/
+	if (inputChecked.checked) {
+		checkActivite(jsFrameworks, express);
+		checkActivite(express, jsFrameworks);
+		checkActivite(jsLibs, node);
+		checkActivite(node, jsLibs);
+
+	}else {
+		uncheckActivite(jsFrameworks, express);
+		uncheckActivite(express, jsFrameworks);
+		uncheckActivite(jsLibs, node);
+		uncheckActivite(node, jsLibs);
+	}
+
+}
+
+/*********************eventlistener*********************/
 
 //modification et verification du name
 
@@ -140,24 +185,25 @@ emailAddress.addEventListener("blur", function () {
     document.getElementById("mail").setAttribute("placeholder", "");
 });
 
-document.getElementById("mail").addEventListener("input", function (e) {
+emailAddress.addEventListener("input", function (e) {
         verifEmail();
 });
 
 // rubrique role travail
-//ajout de l'id 'other-title'
-option[5].id = "other-title";
 //appelle de la fonction afficherInput pour jobrole
 afficherInput();
 
 
 //rubrique t-shirt
-
-//ajout class sur les choix de coloris
 selectColor.style.display = "none";
 ajoutId();
-
 form.addEventListener("change", function (e) {
 	switchChoixTshirt();
 e.preventDefault();
+});
+
+//rubrique activité
+activitesField.addEventListener('change', (e) => {
+    let target = e.target
+    inscrireAuActivites(target);
 });
