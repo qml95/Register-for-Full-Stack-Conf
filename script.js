@@ -17,13 +17,13 @@ const jobAutre         = document.querySelector("#other-title")
 
 const selectColor		 = document.querySelector('#colors-js-puns')
 
-var activitesField        = document.querySelector('.activities');
+const activitesField        = document.querySelector('.activities');
 
-var incrireTitre             = activitesField.firstElementChild;
+const incrireTitre             = activitesField.firstElementChild;
 
-var activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
+const activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
 
-
+let totalAct = 0;
 
 
 
@@ -41,6 +41,11 @@ inputElt.style.backgroundColor = '#c1deeb';
 inputElt.style.display = "none";
 inputElt.style.marginLeft = '20px';
 
+//élément activite prix total
+const totalPrix = document.createElement('h4');
+totalPrix.id = 'total-price';
+totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
+activitesField.appendChild(totalPrix);
 /**************************fonctions*******************/
 
 
@@ -127,7 +132,7 @@ var checkActivite = (activite1, activite2) => {
 }
 var uncheckActivite = (activite1, activite2) => {
 	if (!activite1.checked) {
-		activite2.removeAttribut("disabled")
+		activite2.removeAttribute("disabled");
 	}
 }
 // desactivation des choix et prix
@@ -141,19 +146,26 @@ var inscrireAuActivites = (inputChecked) => {
 	let node = document.querySelector('input[name=node]');
 
 	if (inputChecked.checked) {
-		checkActivite(jsFrameworks, express);
-		checkActivite(express, jsFrameworks);
-		checkActivite(jsLibs, node);
-		checkActivite(node, jsLibs);
-
-	}else {
-		uncheckActivite(jsFrameworks, express);
-		uncheckActivite(express, jsFrameworks);
-		uncheckActivite(jsLibs, node);
-		uncheckActivite(node, jsLibs);
+			activitePrix = parseInt(inputChecked.className);
+			totalAct = totalAct + activitePrix;
+			totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
+			checkActivite(jsFrameworks, express);
+			checkActivite(express, jsFrameworks);
+			checkActivite(jsLibs, node);
+			checkActivite(node, jsLibs);
+			console.log(activitePrix);
+	} else {
+			activitePrix = parseInt(inputChecked.className);
+			totalAct = totalAct - activitePrix;
+			totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
+			uncheckActivite(jsFrameworks, express);
+			uncheckActivite(express, jsFrameworks);
+			uncheckActivite(jsLibs, node);
+			uncheckActivite(node, jsLibs);
 	}
+};
 
-}
+
 
 /*********************eventlistener*********************/
 
