@@ -25,7 +25,12 @@ const activitesCheckboxes      = activitesField.querySelectorAll("input[type=che
 
 let totalAct = 0;
 
-
+const paymentField           = document.querySelector('.paymentContainer');
+const paymentSelect             = document.querySelector('#payment');
+const creditPayment         = document.querySelector('#credit-card');
+const paypalPayment             = document.querySelector(".paypal");
+const bitcoinPayment            = document.querySelector(".bitcoin");
+var credit = paymentSelect.children;
 
 
 /*********************création d'éléments**************/
@@ -46,6 +51,14 @@ const totalPrix = document.createElement('h4');
 totalPrix.id = 'total-price';
 totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
 activitesField.appendChild(totalPrix);
+
+/***********modification du dom par defaut*********/
+option[5].id = "other-title";
+
+creditPayment.style.display     = "block";
+paypalPayment.style.display         = "none";
+bitcoinPayment.style.display        = "none";
+credit[1].setAttribute('selected', true);
 /**************************fonctions*******************/
 
 
@@ -61,7 +74,7 @@ function verifEmail() {
 	}
 }
 //role travail
-option[5].id = "other-title";
+
 // function pout l'input de jobrole
 function afficherInput() {
 	var autreJob = (jobAutre) => {
@@ -166,6 +179,34 @@ var inscrireAuActivites = (inputChecked) => {
 };
 
 
+//rubrique paiement
+
+function switchChoixPaiement() {
+	switch (form.elements.payment.value) {
+		case "credit card":
+		creditPayment.style.display     = "block";
+		paypalPayment.style.display         = "none";
+		bitcoinPayment.style.display        = "none";
+			break;
+		case "paypal":
+		creditPayment.style.display     = "none";
+		paypalPayment.style.display         = "block";
+		bitcoinPayment.style.display        = "none";
+			break;
+		case "bitcoin":
+		creditPayment.style.display     = "none";
+		paypalPayment.style.display         = "none";
+		bitcoinPayment.style.display        = "block";
+			break;
+		default:
+		creditPayment.style.display     = "none";
+		paypalPayment.style.display         = "none";
+		bitcoinPayment.style.display        = "none";
+
+	}
+}
+
+
 
 /*********************eventlistener*********************/
 
@@ -218,4 +259,10 @@ e.preventDefault();
 activitesField.addEventListener('change', (e) => {
     let target = e.target
     inscrireAuActivites(target);
+});
+
+//rubrique paiement
+form.addEventListener("change", function (e) {
+	switchChoixPaiement();
+e.preventDefault();
 });
