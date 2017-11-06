@@ -1,36 +1,42 @@
 //declaration des varialbles globales
 
-const form           = document.querySelector("form");
+var form           = document.querySelector("form");
 
-const firstFieldset  =
+var firstFieldset  =
 document.querySelector('fieldset');
 
-const userName       = document.getElementById("name");
+var userName       = document.getElementById("name");
 
-const emailAddress   = document.getElementById('mail');
+var emailAddress   = document.getElementById('mail');
 
-const option           = document.getElementsByTagName('option');
+var option           = document.getElementsByTagName('option');
 
-const select					 = document.querySelector("#title")
+var select					 = document.querySelector("#title")
 
-const jobAutre         = document.querySelector("#other-title")
+var jobAutre         = document.querySelector("#other-title")
 
-const selectColor		 = document.querySelector('#colors-js-puns')
+var selectColor		 = document.querySelector('#colors-js-puns')
 
-const activitesField        = document.querySelector('.activities');
+var activitesField        = document.querySelector('.activities');
 
-const incrireTitre             = activitesField.firstElementChild;
+var incrireTitre             = activitesField.firstElementChild;
 
-const activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
+var activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
 
-let totalAct = 0;
+var totalAct = 0;
 
-const paymentField           = document.querySelector('.paymentContainer');
-const paymentSelect             = document.querySelector('#payment');
-const creditPayment         = document.querySelector('#credit-card');
-const paypalPayment             = document.querySelector(".paypal");
-const bitcoinPayment            = document.querySelector(".bitcoin");
+var paymentField           = document.querySelector('.paymentContainer');
+var paymentSelect             = document.querySelector('#payment');
+var creditPayment         = document.querySelector('#credit-card');
+var paypalPayment             = document.querySelector(".paypal");
+var bitcoinPayment            = document.querySelector(".bitcoin");
 var credit = paymentSelect.children;
+
+
+var cardNumber                = document.querySelector('#cc-num');
+var zipNumber                 = document.querySelector('#zip');
+var cvvNumber                 = document.querySelector("#cvv");
+
 
 
 /*********************création d'éléments**************/
@@ -47,13 +53,14 @@ inputElt.style.display = "none";
 inputElt.style.marginLeft = '20px';
 
 //élément activite prix total
-const totalPrix = document.createElement('h4');
+var totalPrix = document.createElement('h4');
 totalPrix.id = 'total-price';
 totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
 activitesField.appendChild(totalPrix);
 
 /***********modification du dom par defaut*********/
 option[5].id = "other-title";
+
 
 creditPayment.style.display     = "block";
 paypalPayment.style.display         = "none";
@@ -90,7 +97,7 @@ function afficherInput() {
 	});
 
 	select.addEventListener('change', () => {
-	    let jobAutre = select.value;
+	    var jobAutre = select.value;
 	    autreJob(jobAutre);
 });
 }
@@ -151,12 +158,12 @@ var uncheckActivite = (activite1, activite2) => {
 // desactivation des choix et prix
 var inscrireAuActivites = (inputChecked) => {
 	//1er couple
-	let jsFrameworks =
+	var jsFrameworks =
 	document.querySelector ('input[name=js-frameworks]');
-	let express = document.querySelector('input[name=express]');
+	var express = document.querySelector('input[name=express]');
 	//2ème couple
-	let jsLibs = document.querySelector('input[name=js-libs]');
-	let node = document.querySelector('input[name=node]');
+	var jsLibs = document.querySelector('input[name=js-libs]');
+	var node = document.querySelector('input[name=node]');
 
 	if (inputChecked.checked) {
 			activitePrix = parseInt(inputChecked.className);
@@ -166,7 +173,7 @@ var inscrireAuActivites = (inputChecked) => {
 			checkActivite(express, jsFrameworks);
 			checkActivite(jsLibs, node);
 			checkActivite(node, jsLibs);
-			console.log(activitePrix);
+
 	} else {
 			activitePrix = parseInt(inputChecked.className);
 			totalAct = totalAct - activitePrix;
@@ -177,6 +184,26 @@ var inscrireAuActivites = (inputChecked) => {
 			uncheckActivite(node, jsLibs);
 	}
 };
+var checkValidation = (inputTargerted) => {
+    var status;
+    var myArray = [];
+    for (var i = 0; i < inputTargerted.length; i++) {
+        if (!inputTargerted[i].checked) {
+            myArray.push(myArray);
+        }
+    }
+    if (myArray.length === inputTargerted.length) {
+        inscrireTitre.textContent = "Register for Activities: (please chooese at least one activity)";
+        inscrireTitre.style.color = "#3D0B1A";
+        inscrireTitre.style.textDecoration = "underline";
+        return false;
+    }
+    inscrireTitre.textContent = "Register for Activities: ";
+    inscrireTitre.style.color = "#000";
+    inscrireTitre.style.textDecoration = "none";
+    return true;
+}
+
 
 
 //rubrique paiement
@@ -185,26 +212,27 @@ function switchChoixPaiement() {
 	switch (form.elements.payment.value) {
 		case "credit card":
 		creditPayment.style.display     = "block";
-		paypalPayment.style.display         = "none";
-		bitcoinPayment.style.display        = "none";
+		paypalPayment.style.display     = "none";
+		bitcoinPayment.style.display    = "none";
 			break;
 		case "paypal":
 		creditPayment.style.display     = "none";
-		paypalPayment.style.display         = "block";
-		bitcoinPayment.style.display        = "none";
+		paypalPayment.style.display     = "block";
+		bitcoinPayment.style.display    = "none";
 			break;
 		case "bitcoin":
 		creditPayment.style.display     = "none";
-		paypalPayment.style.display         = "none";
-		bitcoinPayment.style.display        = "block";
+		paypalPayment.style.display     = "none";
+		bitcoinPayment.style.display    = "block";
 			break;
 		default:
 		creditPayment.style.display     = "none";
-		paypalPayment.style.display         = "none";
-		bitcoinPayment.style.display        = "none";
+		paypalPayment.style.display     = "none";
+		bitcoinPayment.style.display    = "none";
 
 	}
 }
+
 
 
 
@@ -257,7 +285,7 @@ e.preventDefault();
 
 //rubrique activité
 activitesField.addEventListener('change', (e) => {
-    let target = e.target
+    var target = e.target
     inscrireAuActivites(target);
 });
 
@@ -266,3 +294,28 @@ form.addEventListener("change", function (e) {
 	switchChoixPaiement();
 e.preventDefault();
 });
+
+cardNumber.addEventListener("input", function (e) {
+    var number = e.target.value;
+    var couleurBlock = "red";
+    if (number.length === 12 && (/[0-9]/.test(cardNumber.value) )) {
+        couleurBlock = "green";
+    }
+    cardNumber.style.borderColor = couleurBlock;
+});
+zipNumber.addEventListener("input", function (e) {
+    var name = e.target.value;
+    var couleurBlock = "red";
+    if (name.length === 3 && (/[0-9]/.test(zipNumber.value) )) {
+        couleurBlock = "green";
+    }
+    zipNumber.style.borderColor = couleurBlock;
+});
+cvvNumber.addEventListener("input", function(e) {
+  var name = e.target.value;
+  var couleurBlock = 'red';
+  if (name.length === 5 && (/[0-9]/.test(cvvNumber.value) )) {
+    couleurBlock = 'green';
+  }
+  cvvNumber.style.borderColor = couleurBlock;
+})
