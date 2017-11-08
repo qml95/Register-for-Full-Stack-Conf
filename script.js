@@ -1,28 +1,20 @@
 //declaration des varialbles globales
 
 var form           = document.querySelector("form");
-
 var firstFieldset  =
 document.querySelector('fieldset');
 
 var userName       = document.getElementById("name");
-
 var emailAddress   = document.getElementById('mail');
 
 var option           = document.getElementsByTagName('option');
-
 var select					 = document.querySelector("#title")
-
 var jobAutre         = document.querySelector("#other-title")
-
 var selectColor		 = document.querySelector('#colors-js-puns')
 
 var activitesField        = document.querySelector('.activities');
-
-var incrireTitre             = activitesField.firstElementChild;
-
+var inscrireTitre             = activitesField.firstElementChild;
 var activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
-
 var totalAct = 0;
 
 var paymentField           = document.querySelector('.paymentContainer');
@@ -59,9 +51,29 @@ totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
 activitesField.appendChild(totalPrix);
 
 /***********modification du dom par defaut*********/
+//name
+userName.focus();
+userName.setAttribute("placeholder", "Entrez votre nom");
+
+userName.addEventListener("focus", function () {
+    document.getElementById("name").setAttribute("placeholder", "Entrez votre nom");
+});
+userName.addEventListener("blur", function () {
+    document.getElementById("name").setAttribute("placeholder", "");
+});
+
+//email
+emailAddress.addEventListener("focus", function () {
+    document.getElementById("mail").setAttribute("placeholder", "Entrez votre email");
+});
+
+emailAddress.addEventListener("blur", function () {
+    document.getElementById("mail").setAttribute("placeholder", "");
+});
+//autre job
 option[5].id = "other-title";
 
-
+//paiement
 creditPayment.style.display     = "block";
 paypalPayment.style.display         = "none";
 bitcoinPayment.style.display        = "none";
@@ -70,6 +82,20 @@ credit[1].setAttribute('selected', true);
 
 
 //declarations de mes fonctions
+//name
+function verifName() {
+
+  if (userName.value.length >= 2) {
+      userName.style.borderColor = 'green';
+      return true;
+  }else {
+    userName.style.borderColor = 'red';
+    return false;
+  }
+
+
+}
+//email
 function verifEmail() {
 	if
     (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6}$/.test(emailAddress.value)) { // si l'email n'est pas correct:
@@ -184,29 +210,63 @@ var inscrireAuActivites = (inputChecked) => {
 			uncheckActivite(node, jsLibs);
 	}
 };
-var checkValidation = (inputTargerted) => {
-    var status;
+
+function checkValidation() {
+
     var myArray = [];
-    for (var i = 0; i < inputTargerted.length; i++) {
-        if (!inputTargerted[i].checked) {
+    for (var i = 0; i < activitesCheckboxes.length; i++) {
+        if (!activitesCheckboxes[i].checked) {
             myArray.push(myArray);
         }
     }
-    if (myArray.length === inputTargerted.length) {
+    if (myArray.length === activitesCheckboxes.length) {
         inscrireTitre.textContent = "Register for Activities: (please chooese at least one activity)";
-        inscrireTitre.style.color = "#3D0B1A";
+        inscrireTitre.style.color = "red";
         inscrireTitre.style.textDecoration = "underline";
         return false;
-    }
+    } else{
     inscrireTitre.textContent = "Register for Activities: ";
     inscrireTitre.style.color = "#000";
     inscrireTitre.style.textDecoration = "none";
     return true;
+  }
+
+
 }
 
 
-
 //rubrique paiement
+// function verifCardCredit() {
+function verifCardNumber() {
+      if (cardNumber.value.length === 13 &&  (/[0-9]/.test(cardNumber.value) )) {
+          cardNumber.style.borderColor = "green";
+          return true;
+      }else {
+        cardNumber.style.borderColor = "red";
+        return false;
+      }
+}
+
+function verifZip() {
+    if (zipNumber.value.length === 5 && (/[0-9]/.test(zipNumber.value) )) {
+      zipNumber.style.borderColor = "green";
+      return true;
+    } else {
+      zipNumber.style.borderColor = "red";
+      return false;
+    }
+  }
+
+function verifCvv() {
+    if (cvvNumber.value.length === 3 && (/[0-9]/.test(cvvNumber.value) )) {
+      cvvNumber.style.borderColor = 'green';
+      return true;
+    } else {
+      cvvNumber.style.borderColor = 'red';
+      return false;
+    }
+}
+//}
 
 function switchChoixPaiement() {
 	switch (form.elements.payment.value) {
@@ -214,6 +274,7 @@ function switchChoixPaiement() {
 		creditPayment.style.display     = "block";
 		paypalPayment.style.display     = "none";
 		bitcoinPayment.style.display    = "none";
+
 			break;
 		case "paypal":
 		creditPayment.style.display     = "none";
@@ -236,45 +297,19 @@ function switchChoixPaiement() {
 
 
 
-/*********************eventlistener*********************/
+/*****************verification*****************/
 
-//modification et verification du name
-
-userName.focus();
-userName.setAttribute("placeholder", "Entrez votre nom");
-
-userName.addEventListener("blur", function () {
-    document.getElementById("name").setAttribute("placeholder", "");
-});
-
+//verification du name
 userName.addEventListener("input", function (e) {
-    var name = e.target.value;
-    var couleurBlock = "red";
-    if (name.length >= 2) {
-        couleurBlock = "green";
-    }
-    userName.style.borderColor = couleurBlock;
+verifName();
 });
-
-
-// modification et verification de l'email
-emailAddress.addEventListener("focus", function () {
-    document.getElementById("mail").setAttribute("placeholder", "Entrez votre email");
-});
-
-emailAddress.addEventListener("blur", function () {
-    document.getElementById("mail").setAttribute("placeholder", "");
-});
-
+// verification de l'email
 emailAddress.addEventListener("input", function (e) {
         verifEmail();
 });
-
 // rubrique role travail
 //appelle de la fonction afficherInput pour jobrole
 afficherInput();
-
-
 //rubrique t-shirt
 selectColor.style.display = "none";
 ajoutId();
@@ -282,40 +317,50 @@ form.addEventListener("change", function (e) {
 	switchChoixTshirt();
 e.preventDefault();
 });
-
 //rubrique activité
 activitesField.addEventListener('change', (e) => {
     var target = e.target
     inscrireAuActivites(target);
 });
-
 //rubrique paiement
 form.addEventListener("change", function (e) {
 	switchChoixPaiement();
 e.preventDefault();
 });
-
 cardNumber.addEventListener("input", function (e) {
-    var number = e.target.value;
-    var couleurBlock = "red";
-    if (number.length === 12 && (/[0-9]/.test(cardNumber.value) )) {
-        couleurBlock = "green";
-    }
-    cardNumber.style.borderColor = couleurBlock;
+  verifCardNumber();
 });
 zipNumber.addEventListener("input", function (e) {
-    var name = e.target.value;
-    var couleurBlock = "red";
-    if (name.length === 3 && (/[0-9]/.test(zipNumber.value) )) {
-        couleurBlock = "green";
-    }
-    zipNumber.style.borderColor = couleurBlock;
+verifZip();
 });
 cvvNumber.addEventListener("input", function(e) {
-  var name = e.target.value;
-  var couleurBlock = 'red';
-  if (name.length === 5 && (/[0-9]/.test(cvvNumber.value) )) {
-    couleurBlock = 'green';
+  verifCvv();
+});
+
+//submit
+
+form.addEventListener('submit', (e) => {
+    var paymentOption = paymentSelect.value;
+function verifPaiment() {
+    if (paymentOption === 'credit card') {
+    		if (!verifCvv()||!verifZip()||!verifCardNumber()) {
+    		 return false;
+       }else {
+         return true;
+       }
+
+      }else if (payementOption = 'paypal') {
+        return true;
+      }else if (payementOption = 'bitcoin') {
+        return true;
+      } else {
+        return false;
+      }
+}
+  if (!verifName() || !verifEmail()||!checkValidation() || !verifPaiment()) {
+    alert("verifiez vos saisies!!");
+  }else {
+    alert("vous etes bien inscrit!!!");
   }
-  cvvNumber.style.borderColor = couleurBlock;
-})
+  e.preventDefault();
+});
