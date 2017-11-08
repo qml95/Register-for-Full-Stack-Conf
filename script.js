@@ -1,33 +1,38 @@
 //declaration des varialbles globales
 
+//variable sur le formulaire entier
 var form           = document.querySelector("form");
-var firstFieldset  =
-document.querySelector('fieldset');
+var firstFieldset  = document.querySelector('fieldset');
 
+//varialbles pour le name et l'email
 var userName       = document.getElementById("name");
 var emailAddress   = document.getElementById('mail');
 
-var option           = document.getElementsByTagName('option');
-var select					 = document.querySelector("#title")
-var jobAutre         = document.querySelector("#other-title")
-var selectColor		 = document.querySelector('#colors-js-puns')
+// variable pour la partie jobrole
+var option         = document.getElementsByTagName('option');
+var select				 = document.querySelector("#title")
+var jobAutre       = document.querySelector("#other-title")
 
-var activitesField        = document.querySelector('.activities');
-var inscrireTitre             = activitesField.firstElementChild;
-var activitesCheckboxes      = activitesField.querySelectorAll("input[type=checkbox]");
-var totalAct = 0;
+//variable pour la partie t-shirt
+var selectColor    = document.querySelector('#colors-js-puns')
 
-var paymentField           = document.querySelector('.paymentContainer');
-var paymentSelect             = document.querySelector('#payment');
-var creditPayment         = document.querySelector('#credit-card');
-var paypalPayment             = document.querySelector(".paypal");
-var bitcoinPayment            = document.querySelector(".bitcoin");
-var credit = paymentSelect.children;
+// varialbles pour la partie activitees
+var activitesField = document.querySelector('.activities');
+var inscrireTitre  = activitesField.firstElementChild;
+var activitesCheckboxes   = activitesField.querySelectorAll("input[type=checkbox]");
+var totalAct       = 0;
 
+//varialbles pour la partie paiement
+var paymentField   = document.querySelector('.paymentContainer');
+var paymentSelect  = document.querySelector('#payment');
+var creditPayment  = document.querySelector('#credit-card');
+var paypalPayment  = document.querySelector(".paypal");
+var bitcoinPayment = document.querySelector(".bitcoin");
+var credit         = paymentSelect.children;
 
-var cardNumber                = document.querySelector('#cc-num');
-var zipNumber                 = document.querySelector('#zip');
-var cvvNumber                 = document.querySelector("#cvv");
+var cardNumber     = document.querySelector('#cc-num');
+var zipNumber      = document.querySelector('#zip');
+var cvvNumber      = document.querySelector("#cvv");
 
 
 
@@ -50,7 +55,8 @@ totalPrix.id = 'total-price';
 totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
 activitesField.appendChild(totalPrix);
 
-/***********modification du dom par defaut*********/
+/*******modification du dom par defaut*********/
+
 //name
 userName.focus();
 userName.setAttribute("placeholder", "Entrez votre nom");
@@ -74,21 +80,22 @@ emailAddress.addEventListener("blur", function () {
 option[5].id = "other-title";
 
 //paiement
-creditPayment.style.display     = "block";
+creditPayment.style.display         = "block";
 paypalPayment.style.display         = "none";
 bitcoinPayment.style.display        = "none";
 credit[1].setAttribute('selected', true);
-/**************************fonctions*******************/
 
+
+/******************fonctions*******************/
 
 //declarations de mes fonctions
+
 //name
 function verifName() {
-
   if (userName.value.length >= 2) {
       userName.style.borderColor = 'green';
       return true;
-  }else {
+  } else {
     userName.style.borderColor = 'red';
     return false;
   }
@@ -106,14 +113,13 @@ function verifEmail() {
 	  return true;
 	}
 }
-//role travail
 
-// function pout l'input de jobrole
+//role travail
 function afficherInput() {
 	var autreJob = (jobAutre) => {
 	  if (jobAutre.toLowerCase()=== "other") {
 	    inputElt.style.display = "";
-	  }else {
+	  } else {
 	  	inputElt.style.display = "none";
 	  }
 	}
@@ -184,16 +190,15 @@ var uncheckActivite = (activite1, activite2) => {
 // desactivation des choix et prix
 var inscrireAuActivites = (inputChecked) => {
 	//1er couple
-	var jsFrameworks =
-	document.querySelector ('input[name=js-frameworks]');
-	var express = document.querySelector('input[name=express]');
+	var jsFrameworks = document.querySelector ('input[name=js-frameworks]');
+	var express      = document.querySelector('input[name=express]');
 	//2ème couple
-	var jsLibs = document.querySelector('input[name=js-libs]');
-	var node = document.querySelector('input[name=node]');
+	var jsLibs       = document.querySelector('input[name=js-libs]');
+	var node         = document.querySelector('input[name=node]');
 
 	if (inputChecked.checked) {
-			activitePrix = parseInt(inputChecked.className);
-			totalAct = totalAct + activitePrix;
+			activitePrix          = parseInt(inputChecked.className);
+			totalAct              = totalAct + activitePrix;
 			totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
 			checkActivite(jsFrameworks, express);
 			checkActivite(express, jsFrameworks);
@@ -201,8 +206,8 @@ var inscrireAuActivites = (inputChecked) => {
 			checkActivite(node, jsLibs);
 
 	} else {
-			activitePrix = parseInt(inputChecked.className);
-			totalAct = totalAct - activitePrix;
+			activitePrix          = parseInt(inputChecked.className);
+			totalAct              = totalAct - activitePrix;
 			totalPrix.textContent = "The total price of your order is: " + totalAct + "$";
 			uncheckActivite(jsFrameworks, express);
 			uncheckActivite(express, jsFrameworks);
@@ -234,14 +239,12 @@ function checkValidation() {
 
 }
 
-
 //rubrique paiement
-// function verifCardCredit() {
 function verifCardNumber() {
       if (cardNumber.value.length === 13 &&  (/[0-9]/.test(cardNumber.value) )) {
           cardNumber.style.borderColor = "green";
           return true;
-      }else {
+      } else {
         cardNumber.style.borderColor = "red";
         return false;
       }
@@ -293,6 +296,23 @@ function switchChoixPaiement() {
 
 	}
 }
+var paymentOption = paymentSelect.value;
+function verifPaiment() {
+  if (paymentOption === 'credit card') {
+        if (!verifCvv()||!verifZip()||!verifCardNumber()) {
+         return false;
+       } else {
+         return true;
+       }
+
+    } else if (payementOption = 'paypal') {
+      return true;
+    } else if (payementOption = 'bitcoin') {
+      return true;
+    } else {
+      return false;
+    }
+}
 
 
 
@@ -340,26 +360,10 @@ cvvNumber.addEventListener("input", function(e) {
 //submit
 
 form.addEventListener('submit', (e) => {
-    var paymentOption = paymentSelect.value;
-function verifPaiment() {
-    if (paymentOption === 'credit card') {
-    		if (!verifCvv()||!verifZip()||!verifCardNumber()) {
-    		 return false;
-       }else {
-         return true;
-       }
 
-      }else if (payementOption = 'paypal') {
-        return true;
-      }else if (payementOption = 'bitcoin') {
-        return true;
-      } else {
-        return false;
-      }
-}
   if (!verifName() || !verifEmail()||!checkValidation() || !verifPaiment()) {
     alert("verifiez vos saisies!!");
-  }else {
+  } else {
     alert("vous etes bien inscrit!!!");
   }
   e.preventDefault();
