@@ -277,17 +277,16 @@ function switchChoixPaiement() {
 		creditPayment.style.display     = "block";
 		paypalPayment.style.display     = "none";
 		bitcoinPayment.style.display    = "none";
-
 			break;
 		case "paypal":
+    paypalPayment.style.display     = "block";
 		creditPayment.style.display     = "none";
-		paypalPayment.style.display     = "block";
 		bitcoinPayment.style.display    = "none";
 			break;
 		case "bitcoin":
+    bitcoinPayment.style.display       = "block";
 		creditPayment.style.display     = "none";
 		paypalPayment.style.display     = "none";
-		bitcoinPayment.style.display    = "block";
 			break;
 		default:
 		creditPayment.style.display     = "none";
