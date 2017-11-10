@@ -12,6 +12,7 @@ var emailAddress   = document.getElementById('mail');
 var option         = document.getElementsByTagName('option');
 var select				 = document.querySelector("#title")
 var jobAutre       = document.querySelector("#other-title")
+var inputElt       = document.getElementById('other-job');
 
 //variable pour la partie t-shirt
 var selectColor    = document.querySelector('#colors-js-puns')
@@ -39,17 +40,17 @@ var cvvNumber      = document.querySelector("#cvv");
 /*********************création d'éléments**************/
 
 // élément jobrole
-document.getElementById('title').insertAdjacentHTML("afterend",
-    '<input type="text" name="" value="" id="input">');
-
-// REVIEW: Review Pourquoi pas directement dans le CSS ?
-var inputElt = document.getElementById('input');
-inputElt.style.width = '50%';
-inputElt.style.height = '10px';
-inputElt.style.backgroundColor = '#c1deeb';
-inputElt.style.display = "none";
-inputElt.style.marginLeft = '20px';
-// fin REVIEW
+// document.getElementById('title').insertAdjacentHTML("afterend",
+//     '<input type="text" name="" value="" id="input">');
+//
+// // REVIEW: Review Pourquoi pas directement dans le CSS ?
+// var inputElt = document.getElementById('input');
+// inputElt.style.width = '50%';
+// inputElt.style.height = '10px';
+// inputElt.style.backgroundColor = '#c1deeb';
+// inputElt.style.display = "none";
+// inputElt.style.marginLeft = '20px';
+// // fin REVIEW
 
 //élément activite prix total
 var totalPrix = document.createElement('h4');
@@ -62,26 +63,8 @@ activitesField.appendChild(totalPrix);
 //name
 // REVIEW: si c'est un focus dès le début pourquoi ne pas le mettre au même endroit que tes event listeners ?
 // REVIEW: Pas besoin de définir les placeholders ici, tu peux les faire directement depuis le css
-userName.focus();
-userName.setAttribute("placeholder", "Entrez votre nom");
 
-userName.addEventListener("focus", function () {
-    document.getElementById("name").setAttribute("placeholder", "Entrez votre nom");
-});
-userName.addEventListener("blur", function () {
-    document.getElementById("name").setAttribute("placeholder", "");
-});
 
-//email
-emailAddress.addEventListener("focus", function () {
-    document.getElementById("mail").setAttribute("placeholder", "Entrez votre email");
-});
-
-emailAddress.addEventListener("blur", function () {
-    document.getElementById("mail").setAttribute("placeholder", "");
-});
-//autre job
-option[5].id = "other-title";
 
 //paiement
 creditPayment.style.display         = "block";
@@ -121,6 +104,7 @@ function verifEmail() {
 
 //role travail
 function afficherInput() {
+  inputElt.style.display = "none";
 	var autreJob = (jobAutre) => {
 	  if (jobAutre.toLowerCase()=== "other") {
 	    inputElt.style.display = "";
@@ -185,18 +169,19 @@ function switchChoixTshirt() {
     // function functionName() {
     //
     // }
-var checkActivite = (activite1, activite2) => {
-	if (activite1.checked) {
-		activite2.setAttribute("disabled", true);
-	}
+function checkActivite(activite1, activite2) {
+  if (activite1.checked) {
+    activite2.setAttribute("disabled", true);
+  }
 }
-var uncheckActivite = (activite1, activite2) => {
-	if (!activite1.checked) {
-		activite2.removeAttribute("disabled");
-	}
+function uncheckActivite(activite1, activite2) {
+  if (!activite1.checked) {
+    activite2.removeAttribute("disabled");
+  }
 }
+
 // desactivation des choix et prix
-var inscrireAuActivites = (inputChecked) => {
+function inscrireAuActivites(inputChecked) {
 	//1er couple
 	var jsFrameworks = document.querySelector ('input[name=js-frameworks]');
 	var express      = document.querySelector('input[name=express]');
@@ -327,6 +312,7 @@ function verifPaiment() {
 /*****************verification*****************/
 
 //verification du name
+userName.focus();
 userName.addEventListener("input", function (e) {
 verifName();
 });

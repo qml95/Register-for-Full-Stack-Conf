@@ -21,10 +21,10 @@
         <legend>Basic Info</legend>
 
         <label for="name">Name:</label>
-        <input type="text" id="name" name="user_name">
+        <input type="text" id="name" name="user_name" placeholder="Entrez votre nom">
 
         <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user_email">
+        <input type="email" id="mail" name="user_email" placeholder="Entrez votre Email">
 
         <label for="title">Job Role</label>
         <select id="title" name="user_title">
@@ -33,8 +33,9 @@
           <option value="back-end developer">Back End Developer</option>
           <option value="designer">Designer</option>
           <option value="student">Student</option>
-          <option value="other">Other</option>
+          <option value="other" id="other-title">Other</option>
         </select>
+        <input type="text" name="other" value="" id="other-job">
       </fieldset>
 
       <fieldset class="shirt">
