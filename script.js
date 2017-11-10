@@ -42,12 +42,14 @@ var cvvNumber      = document.querySelector("#cvv");
 document.getElementById('title').insertAdjacentHTML("afterend",
     '<input type="text" name="" value="" id="input">');
 
+// REVIEW: Review Pourquoi pas directement dans le CSS ?
 var inputElt = document.getElementById('input');
 inputElt.style.width = '50%';
 inputElt.style.height = '10px';
 inputElt.style.backgroundColor = '#c1deeb';
 inputElt.style.display = "none";
 inputElt.style.marginLeft = '20px';
+// fin REVIEW
 
 //élément activite prix total
 var totalPrix = document.createElement('h4');
@@ -58,6 +60,8 @@ activitesField.appendChild(totalPrix);
 /*******modification du dom par defaut*********/
 
 //name
+// REVIEW: si c'est un focus dès le début pourquoi ne pas le mettre au même endroit que tes event listeners ?
+// REVIEW: Pas besoin de définir les placeholders ici, tu peux les faire directement depuis le css
 userName.focus();
 userName.setAttribute("placeholder", "Entrez votre nom");
 
@@ -90,6 +94,7 @@ credit[1].setAttribute('selected', true);
 
 //declarations de mes fonctions
 
+// REVIEW: pour toutes les fonctions de vérification, rien ne t'empêche de faire un autre fichier JS à part : un pour tes scripts manipulants le DOM et un autre pour tes scrits de vérification -> tu y gagnes en visibilité :).
 //name
 function verifName() {
   if (userName.value.length >= 2) {
@@ -141,7 +146,6 @@ function ajoutId() {
 	option[12].id = "heartjs";
 }
 function partie1Tshirt() {
-	option[13].setAttribute("selected", true);
 	for (var i = 14; i < 17; i++) {
 		option[i].style.display = '';
 	}
@@ -150,7 +154,6 @@ function partie1Tshirt() {
 	}
 }
 function partie2Tshirt() {
-	option[13].setAttribute("selected", true);
 	for (var i = 17; i < 20; i++) {
 		option[i].style.display = '';
 	}
@@ -164,19 +167,24 @@ function switchChoixTshirt() {
 			selectColor.style.display = "none";
 			break;
 		case "js puns":
-			selectColor.style.display = "";
+			selectColor.style.display = "initial";
 			partie1Tshirt();
 			break;
 		case "heart js":
-			selectColor.style.display = "";
+			selectColor.style.display = "initial";
 			partie2Tshirt();
 			break;
 		default:
 				selectColor.style.display = "none";
 	}
+  option[13].selected = true;
 }
 
 //rubrique activite
+// REVIEW: Tu peux remplacer les arrow functions par des functions simples :) tel que :
+    // function functionName() {
+    //
+    // }
 var checkActivite = (activite1, activite2) => {
 	if (activite1.checked) {
 		activite2.setAttribute("disabled", true);
@@ -332,9 +340,8 @@ afficherInput();
 //rubrique t-shirt
 selectColor.style.display = "none";
 ajoutId();
-form.addEventListener("change", function (e) {
+document.getElementById('design').addEventListener("change", function (e) {
 	switchChoixTshirt();
-e.preventDefault();
 });
 //rubrique activité
 activitesField.addEventListener('change', (e) => {
