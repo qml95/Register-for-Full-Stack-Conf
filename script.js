@@ -60,9 +60,7 @@ activitesField.appendChild(totalPrix);
 
 /*******modification du dom par defaut*********/
 
-//name
-// REVIEW: si c'est un focus dès le début pourquoi ne pas le mettre au même endroit que tes event listeners ?
-// REVIEW: Pas besoin de définir les placeholders ici, tu peux les faire directement depuis le css
+
 
 
 
@@ -77,8 +75,6 @@ credit[1].setAttribute('selected', true);
 
 //declarations de mes fonctions
 
-// REVIEW: pour toutes les fonctions de vérification, rien ne t'empêche de faire un autre fichier JS à part : un pour tes scripts manipulants le DOM et un autre pour tes scrits de vérification -> tu y gagnes en visibilité :).
-//name
 function verifName() {
   if (userName.value.length >= 2) {
       userName.style.borderColor = 'green';
